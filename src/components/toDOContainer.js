@@ -1,27 +1,12 @@
 import React, { Component } from 'react'
 import Header from './Header'
 import InputTodo from './InputTodo'
-import TodosList from './TodosList'
+import TodosList from './TodosList';
+import { v4 as mobutu } from "uuid";
 
 export class TodoContainer extends Component {
   state = {
-    todos: [
-      {
-        id: 1,
-        title: "let's try",
-        completed: true
-      },
-      {
-        id: 2,
-        title: "let's try something",
-        completed: false
-      },
-      {
-        id: 3,
-        title: "let's try something else",
-        completed: true
-      }
-    ]
+    todos: []
   }
 
   handleChange = (id) => {
@@ -49,13 +34,24 @@ export class TodoContainer extends Component {
   }
 
 
+  addTodo = (title) => {
+    const newTodo = {
+      id: mobutu(),
+      title: title,
+      completed: false
+    }
+    this.setState({
+      todos: [...this.state.todos, newTodo]
+    })
+  }
+
 
 
   render() {
     return (
       <div>
         <Header />
-        <InputTodo />
+        <InputTodo addtodoprops= {this.addTodo}/>
         <TodosList todos={this.state.todos} handleChange={this.handleChange} handleDelete= {this.deleteItem} />
       </div>
     )

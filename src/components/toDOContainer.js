@@ -46,6 +46,25 @@ export class TodoContainer extends Component {
   }
 
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.todos !== this.state.todos) {
+      const temp = JSON.stringify(this.state.todos)
+      localStorage.setItem('list', temp)
+    }
+  }
+
+
+
+  componentDidMount() {
+    const loadedTodos = JSON.parse(localStorage.getItem('list'));
+    if (loadedTodos) {
+      this.setState({
+        todos: loadedTodos
+      })
+    }
+  }
+
+
 
   render() {
     return (

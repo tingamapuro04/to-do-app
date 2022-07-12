@@ -1,41 +1,37 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
-export class InputTodo extends Component {
-  state = {
-    title: '',
-    count: 0,
-    name: ''
+const InputTodo = (props) => {
+  const [title, setTitle] = useState('')
+
+  const onChange =e => {
+    setTitle(e.target.value)
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    if (this.state.title.trim()) {
-    this.props.addtodoprops(this.state.title)
-    this.setState({
-      title: ''
-    })
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (title.trim()) {
+      props.addtodoprops(title);
+      setTitle("")
     } else {
-      alert("Please write something!")
+      alert("Write something")
     }
   }
 
-  onChange = (e) => {
-  this.setState({
-    title: e.target.value
-  })
-  }
+  const kiche = {background: 'red', color: 'white', padding: '5px 10px'}
 
-  render() {
-    return (
-      <div>
-        <form onSubmit={ this.handleSubmit } id="form">
-          <input type="text" placeholder="Add an item" value= {this.state.title} onChange= {this.onChange} name="first"/>
-          
-          <button>Submit</button>
-        </form>
-      </div>
-    )
-  }
+  return (
+    <form onSubmit={handleSubmit} className="form-container">
+      <input
+        type="text"
+        className="input-text"
+        placeholder="Add todo..."
+        value={title}
+        name="title"
+        onChange={onChange}
+      />
+      <button className="input-submit" style={kiche}>Submit</button>
+    </form>
+  )
 }
 
 export default InputTodo
